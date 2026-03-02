@@ -12,9 +12,8 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-        <style>
+    <style>
       :root {
-        /* Light Mode Colors - Luxury Palette */
         --primary-gold: #d4af37;
         --primary-dark: #1a1a1a;
         --primary-light: #f8f9fa;
@@ -26,23 +25,12 @@
         --surface-gray: #f1f5f9;
         --border-light: #e2e8f0;
         --shadow-light: rgba(0, 0, 0, 0.1);
-        --gradient-gold: linear-gradient(
-          135deg,
-          #d4af37 0%,
-          #ffd700 50%,
-          #b8860b 100%
-        );
-        --gradient-blue: linear-gradient(
-          135deg,
-          #1e40af 0%,
-          #3b82f6 50%,
-          #60a5fa 100%
-        );
+        --gradient-gold: linear-gradient(135deg, #d4af37 0%, #ffd700 50%, #b8860b 100%);
+        --gradient-blue: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%);
         --gradient-surface: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
       }
 
       [data-theme="dark"] {
-        /* Dark Mode Colors - Sophisticated Dark */
         --primary-gold: #ffd700;
         --primary-dark: #0f0f0f;
         --primary-light: #1a1a1a;
@@ -54,18 +42,8 @@
         --surface-gray: #1f2937;
         --border-light: #374151;
         --shadow-light: rgba(0, 0, 0, 0.3);
-        --gradient-gold: linear-gradient(
-          135deg,
-          #ffd700 0%,
-          #ffa500 50%,
-          #ff8c00 100%
-        );
-        --gradient-blue: linear-gradient(
-          135deg,
-          #1e40af 0%,
-          #3b82f6 50%,
-          #60a5fa 100%
-        );
+        --gradient-gold: linear-gradient(135deg, #ffd700 0%, #ffa500 50%, #ff8c00 100%);
+        --gradient-blue: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%);
         --gradient-surface: linear-gradient(135deg, #111827 0%, #1f2937 100%);
       }
 
@@ -82,9 +60,10 @@
         background: var(--primary-light);
         transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         overflow-x: hidden;
+        /* Default cursor for all devices */
+        cursor: auto;
       }
 
-      /* Premium Typography */
       .heading-primary {
         font-family: "Playfair Display", serif;
         font-weight: 700;
@@ -102,7 +81,45 @@
         letter-spacing: 0.01em;
       }
 
-      /* Sophisticated Navigation */
+      /* Custom cursor - ONLY on desktop with mouse (not touch) */
+      .cursor-dot,
+      .cursor-outline {
+        display: none;
+        width: 8px;
+        height: 8px;
+        background: var(--primary-gold);
+        border-radius: 50%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 9999;
+        transition: transform 0.1s ease;
+      }
+
+      .cursor-outline {
+        width: 40px;
+        height: 40px;
+        background: transparent;
+        border: 2px solid var(--primary-gold);
+        transition: all 0.1s ease;
+        opacity: 0.5;
+      }
+
+      /* Only show custom cursor on devices that have hover (desktop/mouse) */
+      @media (hover: hover) and (pointer: fine) {
+        .cursor-dot,
+        .cursor-outline {
+          display: block;
+        }
+
+        body,
+        body * {
+          cursor: none !important;
+        }
+      }
+
+      /* Navigation */
       .navbar {
         position: fixed;
         top: 0;
@@ -186,19 +203,19 @@
         width: 100%;
       }
 
-      /* Premium Theme Toggle */
       .theme-toggle {
         background: var(--surface-white);
         border: 2px solid var(--border-light);
         border-radius: 50px;
         padding: 0.5rem;
-        cursor: pointer;
+        cursor: pointer !important;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         position: relative;
         width: 60px;
         height: 32px;
         display: flex;
         align-items: center;
+        flex-shrink: 0;
       }
 
       .theme-toggle::before {
@@ -230,9 +247,10 @@
         left: 28px;
       }
 
-      /* Hero Section - Ultra Premium */
+      /* Hero Section */
       .hero {
         height: 100vh;
+        min-height: 600px;
         background: var(--gradient-surface);
         display: flex;
         align-items: center;
@@ -240,6 +258,7 @@
         text-align: center;
         position: relative;
         overflow: hidden;
+        padding: 80px 1rem 1rem;
       }
 
       .hero::before {
@@ -249,30 +268,15 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: radial-gradient(
-            circle at 25% 25%,
-            rgba(212, 175, 55, 0.1) 0%,
-            transparent 50%
-          ),
-          radial-gradient(
-            circle at 75% 75%,
-            rgba(37, 99, 235, 0.1) 0%,
-            transparent 50%
-          );
+        background: radial-gradient(circle at 25% 25%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+          radial-gradient(circle at 75% 75%, rgba(37, 99, 235, 0.1) 0%, transparent 50%);
         animation: subtle-float 20s ease-in-out infinite;
       }
 
       @keyframes subtle-float {
-        0%,
-        100% {
-          transform: translate(0, 0) rotate(0deg);
-        }
-        33% {
-          transform: translate(-10px, -10px) rotate(1deg);
-        }
-        66% {
-          transform: translate(10px, -5px) rotate(-1deg);
-        }
+        0%, 100% { transform: translate(0, 0) rotate(0deg); }
+        33% { transform: translate(-10px, -10px) rotate(1deg); }
+        66% { transform: translate(10px, -5px) rotate(-1deg); }
       }
 
       .hero-content {
@@ -283,6 +287,7 @@
         width: 100%;
       }
 
+      /* FIXED: Profile container - proper sizing on all devices */
       .profile-container {
         position: relative;
         display: block;
@@ -290,6 +295,7 @@
         height: 180px;
         margin: 0 auto 2rem auto;
         border-radius: 50%;
+        flex-shrink: 0;
       }
 
       .profile-container::before {
@@ -306,36 +312,29 @@
         animation: pulse-glow 3s ease-in-out infinite;
       }
 
+      /* FIXED: Profile image - cover properly without cropping face */
       .profile-img {
-        width: 100%;
-        height: 100%;
+        width: 180px;
+        height: 180px;
         object-fit: cover;
-        object-position: center top; /* Fokus ke wajah */
+        object-position: center 10%;
         border-radius: 50%;
         border: 4px solid var(--surface-white);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15),
-          0 0 0 8px rgba(212, 175, 55, 0.1);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15), 0 0 0 8px rgba(212, 175, 55, 0.1);
         transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         position: relative;
         z-index: 2;
+        display: block;
       }
 
       .profile-img:hover {
         transform: scale(1.05);
-        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2),
-          0 0 0 12px rgba(212, 175, 55, 0.15);
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2), 0 0 0 12px rgba(212, 175, 55, 0.15);
       }
 
       @keyframes pulse-glow {
-        0%,
-        100% {
-          transform: scale(1);
-          opacity: 0.1;
-        }
-        50% {
-          transform: scale(1.1);
-          opacity: 0.2;
-        }
+        0%, 100% { transform: scale(1); opacity: 0.1; }
+        50% { transform: scale(1.1); opacity: 0.2; }
       }
 
       .hero h1 {
@@ -366,14 +365,8 @@
       }
 
       @keyframes slide-up {
-        from {
-          opacity: 0;
-          transform: translateY(40px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
+        from { opacity: 0; transform: translateY(40px); }
+        to { opacity: 1; transform: translateY(0); }
       }
 
       .cta-buttons {
@@ -392,7 +385,7 @@
         border-radius: 50px;
         font-weight: 600;
         font-size: 1rem;
-        cursor: pointer;
+        cursor: pointer !important;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         text-decoration: none;
         display: inline-flex;
@@ -414,7 +407,7 @@
         border-radius: 50px;
         font-weight: 600;
         font-size: 1rem;
-        cursor: pointer;
+        cursor: pointer !important;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         text-decoration: none;
         display: inline-flex;
@@ -466,7 +459,7 @@
         line-height: 1.7;
       }
 
-      /* About Section - Luxury Grid */
+      /* About Section */
       .about-grid {
         display: grid;
         grid-template-columns: 1fr 1.5fr;
@@ -536,6 +529,7 @@
         justify-content: center;
         margin-right: 1rem;
         font-size: 1.2rem;
+        flex-shrink: 0;
       }
 
       .contact-details h4 {
@@ -544,7 +538,7 @@
         color: var(--text-primary);
       }
 
-      .contact-details a {
+      .contact-details a, .contact-details span {
         color: var(--text-secondary);
         text-decoration: none;
         transition: color 0.3s ease;
@@ -554,7 +548,7 @@
         color: var(--primary-gold);
       }
 
-      /* Experience Timeline - Premium */
+      /* Experience Timeline */
       .timeline {
         position: relative;
         padding-left: 3rem;
@@ -653,7 +647,22 @@
         font-size: 1.2rem;
       }
 
-      /* Skills - Luxury Cards */
+      /* Timeline sub-section label */
+      .timeline-sub {
+        font-style: italic;
+        font-size: 1rem;
+        color: var(--text-secondary);
+        margin-bottom: 0.75rem;
+        font-weight: 500;
+      }
+
+      .timeline-divider {
+        border: none;
+        border-top: 1px dashed var(--border-light);
+        margin: 1.5rem 0;
+      }
+
+      /* Skills */
       .skills-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -704,6 +713,7 @@
         align-items: center;
         justify-content: center;
         font-size: 1.5rem;
+        flex-shrink: 0;
       }
 
       .skill-tags {
@@ -730,7 +740,7 @@
         box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
       }
 
-      /* Projects - Premium Gallery */
+      /* Projects */
       .projects-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -817,7 +827,7 @@
         border: 1px solid var(--border-light);
       }
 
-      /* Education - Elegant Card */
+      /* Education */
       .education-card {
         background: var(--surface-white);
         padding: 4rem;
@@ -882,7 +892,7 @@
         font-size: 1.1rem;
       }
 
-      /* Contact - Premium Grid */
+      /* Contact */
       .contact-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -899,6 +909,7 @@
         transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         position: relative;
         overflow: hidden;
+        cursor: pointer !important;
       }
 
       .contact-card::before {
@@ -951,13 +962,14 @@
         text-decoration: none;
         font-weight: 500;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        cursor: pointer !important;
       }
 
       .contact-card a:hover {
         color: var(--primary-gold);
       }
 
-      /* Footer - Luxury */
+      /* Footer */
       .footer {
         background: var(--primary-dark);
         color: var(--primary-light);
@@ -972,18 +984,13 @@
         padding: 0 3rem;
       }
 
-      .footer-text {
-        font-size: 1.1rem;
-        margin-bottom: 1rem;
-      }
-
       .footer-subtitle {
         color: var(--primary-gold);
         font-weight: 600;
         font-size: 1rem;
       }
 
-      /* Scroll Elements */
+      /* Scroll */
       .scroll-indicator {
         position: fixed;
         top: 0;
@@ -1011,7 +1018,7 @@
         border: none;
         border-radius: 50%;
         font-size: 1.5rem;
-        cursor: pointer;
+        cursor: pointer !important;
         opacity: 0;
         transform: translateY(20px);
         transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1063,21 +1070,51 @@
         transform: translateX(0);
       }
 
-      /* Responsive Design */
-      @media (max-width: 1200px) {
-        .nav-container {
-          padding: 0 2rem;
-        }
+      /* Loading */
+      .loading-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--surface-white);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        transition: opacity 0.6s ease, visibility 0.6s ease;
+      }
 
-        .section {
-          padding-left: 2rem;
-          padding-right: 2rem;
-        }
+      .loading-overlay.hidden {
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      .loading-spinner {
+        width: 60px;
+        height: 60px;
+        border: 4px solid var(--border-light);
+        border-left: 4px solid var(--primary-gold);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+      /* Responsive */
+      @media (max-width: 1200px) {
+        .nav-container { padding: 0 2rem; }
+        .section { padding-left: 2rem; padding-right: 2rem; }
       }
 
       @media (max-width: 768px) {
-        .nav-links {
-          display: none;
+        .nav-links { display: none; }
+
+        .hero {
+          padding: 80px 1rem 1rem;
         }
 
         .profile-container {
@@ -1086,12 +1123,9 @@
           margin: 0 auto 1.5rem auto;
         }
 
-        .hero {
-          padding: 0 1rem;
-        }
-
-        .hero-content {
-          padding: 0 0.5rem;
+        .profile-img {
+          width: 150px;
+          height: 150px;
         }
 
         .about-grid {
@@ -1130,9 +1164,7 @@
       }
 
       @media (max-width: 480px) {
-        .nav-container {
-          padding: 0 1rem;
-        }
+        .nav-container { padding: 0 1rem; }
 
         .section {
           padding-left: 1rem;
@@ -1142,38 +1174,19 @@
         }
 
         .profile-container {
-          width: 120px;
-          height: 120px;
-          margin: 0 auto 1rem auto;
+          width: 130px;
+          height: 130px;
+          margin: 0 auto 1.25rem auto;
         }
 
-        .hero {
-          padding: 0 0.5rem;
-          min-height: 100vh;
-          display: flex;
-          align-items: center;
+        .profile-img {
+          width: 130px;
+          height: 130px;
         }
 
-        .hero-content {
-          padding: 2rem 0.5rem;
-          width: 100%;
-        }
-
-        .hero h1 {
-          font-size: 2.5rem;
-          margin-bottom: 1rem;
-        }
-
-        .hero .subtitle {
-          font-size: 1.1rem;
-          margin-bottom: 1.5rem;
-        }
-
-        .hero .description {
-          font-size: 1rem;
-          margin-bottom: 2rem;
-          padding: 0 0.5rem;
-        }
+        .hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+        .hero .subtitle { font-size: 1.1rem; margin-bottom: 1.5rem; }
+        .hero .description { font-size: 1rem; margin-bottom: 2rem; padding: 0 0.5rem; }
 
         .cta-buttons {
           flex-direction: column;
@@ -1187,1145 +1200,822 @@
           justify-content: center;
         }
       }
-
-      /* Premium Loading Animation */
-      .loading-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: var(--surface-white);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 9999;
-        transition: opacity 0.6s ease, visibility 0.6s ease;
-      }
-
-      .loading-overlay.hidden {
-        opacity: 0;
-        visibility: hidden;
-      }
-
-      .loading-spinner {
-        width: 60px;
-        height: 60px;
-        border: 4px solid var(--border-light);
-        border-left: 4px solid var(--primary-gold);
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-      }
-
-      @keyframes spin {
-        0% {
-          transform: rotate(0deg);
-        }
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-
-      /* Premium Cursor Effect */
-      .cursor-dot {
-        width: 8px;
-        height: 8px;
-        background: var(--primary-gold);
-        border-radius: 50%;
-        position: fixed;
-        top: 0;
-        left: 0;
-        pointer-events: none;
-        z-index: 9999;
-        transition: transform 0.1s ease;
-      }
-
-      .cursor-outline {
-        width: 40px;
-        height: 40px;
-        border: 2px solid var(--primary-gold);
-        border-radius: 50%;
-        position: fixed;
-        top: 0;
-        left: 0;
-        pointer-events: none;
-        z-index: 9999;
-        transition: all 0.1s ease;
-        opacity: 0.5;
-      }
-
-      /* Hide default cursor on desktop */
-      @media (min-width: 768px) {
-        * {
-          cursor: none !important;
-        }
-      }
     </style>
-      </head>
-      <body data-theme="light">
-        <!-- Loading Overlay -->
-        <div class="loading-overlay" id="loadingOverlay">
-          <div class="loading-spinner"></div>
+  </head>
+  <body data-theme="light">
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+      <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Custom Cursor (desktop only, hidden on mobile via CSS) -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-outline" id="cursorOutline"></div>
+
+    <!-- Scroll Progress -->
+    <div class="scroll-indicator">
+      <div class="scroll-progress" id="scrollProgress"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+      <div class="nav-container">
+        <div class="logo heading-primary">Rafid Zain</div>
+        <div class="nav-content">
+          <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+          <div class="theme-toggle" id="themeToggle"></div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <div class="profile-container">
+          <img src="foto_saya2.jpg" alt="Foto Saya" class="profile-img" />
         </div>
 
-        <!-- Custom Cursor -->
-        <div class="cursor-dot" id="cursorDot"></div>
-        <div class="cursor-outline" id="cursorOutline"></div>
+        <h1 class="heading-primary">Rafid Zain</h1>
+        <p class="subtitle">AI Engineer & Full-Stack Developer</p>
+        <p class="description">
+          Mahasiswa Teknik Informatika Politeknik Caltex Riau dengan passion
+          mendalam dalam artificial intelligence, machine learning, dan
+          pengembangan software inovatif. Berpengalaman dalam mengembangkan
+          solusi teknologi yang mengintegrasikan AI dengan aplikasi real-world.
+        </p>
+        <div class="cta-buttons">
+          <a href="#projects" class="btn-primary">
+            <i class="fas fa-rocket"></i>
+            View Projects
+          </a>
+          <a href="#contact" class="btn-secondary">
+            <i class="fas fa-envelope"></i>
+            Get In Touch
+          </a>
+        </div>
+      </div>
+    </section>
 
-        <!-- Scroll Progress -->
-        <div class="scroll-indicator">
-          <div class="scroll-progress" id="scrollProgress"></div>
+    <!-- About Section -->
+    <section class="section" id="about">
+      <div class="section-header fade-in-up">
+        <div class="section-subtitle">Get To Know Me</div>
+        <h2 class="section-title heading-secondary">About Me</h2>
+        <p class="section-description">
+          Passionate technologist dengan dedikasi tinggi untuk menciptakan
+          solusi inovatif yang berdampak positif.
+        </p>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-image fade-in-left">
+          <img src="foto_saya.jpg" alt="About Saya" class="about-img" />
         </div>
 
-        <!-- Navigation -->
-        <nav class="navbar" id="navbar">
-          <div class="nav-container">
-            <div class="logo heading-primary">Rafid Zain</div>
-            <div class="nav-content">
-              <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#education">Education</a></li>
-                <li><a href="#contact">Contact</a></li>
-              </ul>
-              <div class="theme-toggle" id="themeToggle"></div>
-            </div>
-          </div>
-        </nav>
+        <div class="about-content fade-in-right">
+          <h3 class="heading-secondary">Innovative Problem Solver</h3>
+          <p class="about-text">
+            Saya adalah mahasiswa aktif Teknik Informatika dari Politeknik
+            Caltex Riau. Memiliki passion yang mendalam dalam bidang
+            artificial intelligence, machine learning, dan pengembangan
+            software.
+          </p>
 
-        <!-- Hero Section -->
-        <section class="hero" id="home">
-          <div class="hero-content">
-            <div class="profile-container">
-              <img src="foto_saya2.jpg" alt="Foto Saya" class="profile-img" />
-            </div>
+          <p class="about-text">
+            Dengan pengalaman hands-on dalam berbagai teknologi seperti
+            Python, JavaScript, Kotlin, dan frameworks modern, saya telah
+            mengembangkan berbagai proyek mulai dari aplikasi mobile, sistem
+            informasi geografis, hingga deep learning models dengan akurasi
+            tinggi. Saya juga telah menyelesaikan magang di PT. Mobilkom
+            Telekomindo dan PT. Pertamina Hulu Rokan.
+          </p>
 
-            <h1 class="heading-primary">Rafid Zain</h1>
-            <p class="subtitle">AI Engineer & Full-Stack Developer</p>
-            <p class="description">
-              Mahasiswa Teknik Informatika Politeknik Caltex Riau dengan passion
-              mendalam dalam artificial intelligence, machine learning, dan
-              pengembangan software inovatif. Berpengalaman dalam mengembangkan
-              solusi teknologi yang mengintegrasikan AI dengan aplikasi
-              real-world.
-            </p>
-            <div class="cta-buttons">
-              <a href="#projects" class="btn-primary">
-                <i class="fas fa-rocket"></i>
-                View Projects
-              </a>
-              <a href="#contact" class="btn-secondary">
-                <i class="fas fa-envelope"></i>
-                Get In Touch
-              </a>
-            </div>
-          </div>
-        </section>
-
-        <!-- About Section -->
-        <section class="section" id="about">
-          <div class="section-header fade-in-up">
-            <div class="section-subtitle">Get To Know Me</div>
-            <h2 class="section-title heading-secondary">About Me</h2>
-            <p class="section-description">
-              Passionate technologist dengan dedikasi tinggi untuk menciptakan
-              solusi inovatif yang berdampak positif.
-            </p>
-          </div>
-
-          <div class="about-grid">
-            <div class="about-image fade-in-left">
-              <img src="foto_saya.jpg" alt="About Saya" class="about-img" />
-            </div>
-
-            <div class="about-content fade-in-right">
-              <h3 class="heading-secondary">Innovative Problem Solver</h3>
-              <p class="about-text">
-                Saya adalah mahasiswa aktif Teknik Informatika dari Politeknik
-                Caltex Riau. Memiliki passion yang mendalam dalam bidang
-                artificial intelligence, machine learning, dan pengembangan
-                software.
-              </p>
-
-              <p class="about-text">
-                Dengan pengalaman hands-on dalam berbagai teknologi seperti
-                Python, JavaScript, Kotlin, dan frameworks modern, saya telah
-                mengembangkan berbagai proyek mulai dari aplikasi mobile, sistem
-                informasi geografis, hingga deep learning models dengan akurasi
-                tinggi.
-              </p>
-
-              <div class="contact-info">
-                <div class="contact-item">
-                  <div class="contact-icon">
-                    <i class="fas fa-phone-alt"></i>
-                  </div>
-                  <div class="contact-details">
-                    <h4>Phone</h4>
-                    <a href="tel:082284007158">+62 822-8400-7158</a>
-                  </div>
-                </div>
-
-                <div class="contact-item">
-                  <div class="contact-icon">
-                    <i class="fas fa-envelope"></i>
-                  </div>
-                  <div class="contact-details">
-                    <h4>Email</h4>
-                    <a href="mailto:rafidzain.rz@gmail.com"
-                      >rafidzain.rz@gmail.com</a
-                    >
-                  </div>
-                </div>
-
-                <div class="contact-item">
-                  <div class="contact-icon">
-                    <i class="fas fa-map-marker-alt"></i>
-                  </div>
-                  <div class="contact-details">
-                    <h4>Location</h4>
-                    <span>Pekanbaru, Riau, Indonesia</span>
-                  </div>
-                </div>
-
-                <div class="contact-item">
-                  <div class="contact-icon">
-                    <i class="fab fa-linkedin"></i>
-                  </div>
-                  <div class="contact-details">
-                    <h4>LinkedIn</h4>
-                    <a
-                      href="https://www.linkedin.com/in/rafid-zain-9953a5265/"
-                      target="_blank"
-                      >Connect with me</a
-                    >
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Experience Section -->
-        <section class="section" id="experience">
-          <div class="section-header fade-in-up">
-            <div class="section-subtitle">Professional Journey</div>
-            <h2 class="section-title heading-secondary">
-              Experience & Projects
-            </h2>
-            <p class="section-description">
-              Perjalanan akademik dan profesional dalam mengembangkan solusi
-              teknologi inovatif.
-            </p>
-          </div>
-
-          <div class="timeline">
-            <div class="timeline-item fade-in-up">
-              <div class="timeline-header">
-                <div>
-                  <h3 class="timeline-title">Deep Learning Engineer</h3>
-                  <p class="timeline-company">
-                    Politeknik Caltex Riau - Advanced AI Project
-                  </p>
-                </div>
-                <div class="timeline-date">Apr 2025 - May 2025</div>
-              </div>
-              <div class="timeline-description">
-                <ul>
-                  <li>
-                    Developed a sophisticated handwritten digit recognition
-                    system using Next.js and PyTorch
-                  </li>
-                  <li>
-                    Implemented CRNN (CNN + LSTM) architecture for enhanced
-                    sequence recognition accuracy
-                  </li>
-                  <li>
-                    Achieved 76.03% accuracy on test dataset through advanced
-                    model optimization
-                  </li>
-                  <li>
-                    Integrated Python backend with real-time frontend
-                    predictions for seamless user experience
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="timeline-item fade-in-up">
-              <div class="timeline-header">
-                <div>
-                  <h3 class="timeline-title">GIS Developer</h3>
-                  <p class="timeline-company">
-                    Geographic Information Systems Project
-                  </p>
-                </div>
-                <div class="timeline-date">Dec 2024 - Jan 2025</div>
-              </div>
-              <div class="timeline-description">
-                <ul>
-                  <li>
-                    Built comprehensive web-based GIS platform for mapping SMEs
-                    in Pekanbaru
-                  </li>
-                  <li>
-                    Utilized Leaflet and OpenLayers for advanced map
-                    visualization and interaction
-                  </li>
-                  <li>
-                    Implemented dynamic filtering system based on business
-                    categories and districts
-                  </li>
-                  <li>
-                    Integrated JSON data processing with XAMPP local server
-                    infrastructure
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="timeline-item fade-in-up">
-              <div class="timeline-header">
-                <div>
-                  <h3 class="timeline-title">Mobile App Developer</h3>
-                  <p class="timeline-company">
-                    Digital Library Application Project
-                  </p>
-                </div>
-                <div class="timeline-date">Nov 2024 - Jan 2025</div>
-              </div>
-              <div class="timeline-description">
-                <ul>
-                  <li>
-                    Created full-featured digital library Android application
-                    using Kotlin
-                  </li>
-                  <li>
-                    Implemented user authentication, book management, and
-                    borrowing system
-                  </li>
-                  <li>
-                    Designed modern, responsive UI with Material Design
-                    principles
-                  </li>
-                  <li>
-                    Developed separate admin panel for comprehensive library
-                    management
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="timeline-item fade-in-up">
-              <div class="timeline-header">
-                <div>
-                  <h3 class="timeline-title">3D Animation Specialist</h3>
-                  <p class="timeline-company">Creative Media Production</p>
-                </div>
-                <div class="timeline-date">Feb 2022 - Jun 2022</div>
-              </div>
-              <div class="timeline-description">
-                <ul>
-                  <li>
-                    Produced professional 3D animated short films using Blender
-                  </li>
-                  <li>
-                    Designed custom characters and objects with detailed
-                    modeling techniques
-                  </li>
-                  <li>
-                    Created dynamic animations following structured storyboard
-                    narratives
-                  </li>
-                  <li>
-                    Delivered high-quality video outputs with professional
-                    rendering standards
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Skills Section -->
-        <section class="section" id="skills">
-          <div class="section-header fade-in-up">
-            <div class="section-subtitle">Core Competencies</div>
-            <h2 class="section-title heading-secondary">Skills & Expertise</h2>
-            <p class="section-description">
-              Comprehensive technical and professional skills developed through
-              intensive learning and practical projects.
-            </p>
-          </div>
-
-          <div class="skills-grid">
-            <div class="skill-card fade-in-up">
-              <h3>
-                <div class="skill-icon">
-                  <i class="fas fa-laptop-code"></i>
-                </div>
-                Technical Skills
-              </h3>
-              <div class="skill-tags">
-                <span class="skill-tag">HTML</span>
-                <span class="skill-tag">CSS</span>
-                <span class="skill-tag">JavaScript</span>
-                <span class="skill-tag">Python</span>
-                <span class="skill-tag">Kotlin</span>
-                <span class="skill-tag">C#</span>
-                <span class="skill-tag">Java</span>
-                <span class="skill-tag">C++</span>
-                <span class="skill-tag">SQL</span>
-              </div>
-            </div>
-
-            <div class="skill-card fade-in-up">
-              <h3>
-                <div class="skill-icon">
-                  <i class="fas fa-tools"></i>
-                </div>
-                Tools & Frameworks
-              </h3>
-              <div class="skill-tags">
-                <span class="skill-tag">React & Next.js</span>
-                <span class="skill-tag">PyTorch</span>
-                <span class="skill-tag">TensorFlow</span>
-                <span class="skill-tag">Figma</span>
-                <span class="skill-tag">Blender</span>
-                <span class="skill-tag">Unity</span>
-                <span class="skill-tag">Tailwind CSS</span>
-                <span class="skill-tag">Android Studio</span>
-                <span class="skill-tag">Git & GitHub</span>
-              </div>
-            </div>
-
-            <div class="skill-card fade-in-up">
-              <h3>
-                <div class="skill-icon">
-                  <i class="fas fa-bullseye"></i>
-                </div>
-                Professional Skills
-              </h3>
-              <div class="skill-tags">
-                <span class="skill-tag">Problem Solving</span>
-                <span class="skill-tag">Team Collaboration</span>
-                <span class="skill-tag">Project Management</span>
-                <span class="skill-tag">Time Management</span>
-                <span class="skill-tag">Remote Work Skills</span>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Projects Section -->
-        <section class="section" id="projects">
-          <div class="section-header fade-in-up">
-            <div class="section-subtitle">Featured Work</div>
-            <h2 class="section-title heading-secondary">Projects</h2>
-            <p class="section-description">
-              Showcase of innovative solutions that demonstrate technical
-              excellence and creative problem-solving.
-            </p>
-          </div>
-
-          <div class="projects-grid">
-            <div class="project-card fade-in-up">
-              <div class="project-header">
-                <div class="project-year">2025</div>
-                <h3 class="project-title">
-                  AI Handwriting Recognition Platform
-                </h3>
-              </div>
-              <div class="project-content">
-                <p class="project-description">
-                  Advanced web application leveraging deep learning for
-                  real-time handwritten digit recognition. Built with
-                  cutting-edge CRNN architecture achieving 76.03% accuracy.
-                </p>
-                <div class="project-tech">
-                  <span class="tech-tag">Next.js</span>
-                  <span class="tech-tag">PyTorch</span>
-                  <span class="tech-tag">Python</span>
-                  <span class="tech-tag">CNN+LSTM</span>
-                  <span class="tech-tag">AI/ML</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="project-card fade-in-up">
-              <div class="project-header">
-                <div class="project-year">2024</div>
-                <h3 class="project-title">Smart GIS Mapping System</h3>
-              </div>
-              <div class="project-content">
-                <p class="project-description">
-                  Comprehensive geographic information system for business
-                  intelligence, featuring interactive maps, advanced filtering,
-                  and real-time data visualization.
-                </p>
-                <div class="project-tech">
-                  <span class="tech-tag">JavaScript</span>
-                  <span class="tech-tag">Leaflet</span>
-                  <span class="tech-tag">OpenLayers</span>
-                  <span class="tech-tag">JSON API</span>
-                  <span class="tech-tag">GIS</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="project-card fade-in-up">
-              <div class="project-header">
-                <div class="project-year">2024</div>
-                <h3 class="project-title">Pustakaku Digital Library</h3>
-              </div>
-              <div class="project-content">
-                <p class="project-description">
-                  Full-featured mobile application for digital library
-                  management with modern UI, user authentication, and
-                  comprehensive admin dashboard.
-                </p>
-                <div class="project-tech">
-                  <span class="tech-tag">Kotlin</span>
-                  <span class="tech-tag">Android Studio</span>
-                  <span class="tech-tag">Material Design</span>
-                  <span class="tech-tag">SQLite</span>
-                  <span class="tech-tag">Mobile</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="project-card fade-in-up">
-              <div class="project-header">
-                <div class="project-year">2024</div>
-                <h3 class="project-title">Immersive 3D Game Experience</h3>
-              </div>
-              <div class="project-content">
-                <p class="project-description">
-                  Interactive 3D game developed with Unity and custom Blender
-                  assets, featuring engaging gameplay mechanics and stunning
-                  visual design.
-                </p>
-                <div class="project-tech">
-                  <span class="tech-tag">Unity</span>
-                  <span class="tech-tag">C#</span>
-                  <span class="tech-tag">Blender</span>
-                  <span class="tech-tag">3D Modeling</span>
-                  <span class="tech-tag">Game Dev</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="project-card fade-in-up">
-              <div class="project-header">
-                <div class="project-year">2024</div>
-                <h3 class="project-title">Professional 3D Animation</h3>
-              </div>
-              <div class="project-content">
-                <p class="project-description">
-                  High-quality 3D animated short film with custom character
-                  design, professional storytelling, and cinematic visual
-                  effects.
-                </p>
-                <div class="project-tech">
-                  <span class="tech-tag">Blender</span>
-                  <span class="tech-tag">3D Animation</span>
-                  <span class="tech-tag">Character Design</span>
-                  <span class="tech-tag">Video Production</span>
-                  <span class="tech-tag">Storytelling</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Education Section -->
-        <section class="section" id="education">
-          <div class="section-header fade-in-up">
-            <div class="section-subtitle">Academic Excellence</div>
-            <h2 class="section-title heading-secondary">Education</h2>
-            <p class="section-description">
-              Strong academic foundation in computer science and information
-              technology.
-            </p>
-          </div>
-
-          <div class="education-card fade-in-up">
-            <div class="education-icon">🎓</div>
-            <h3 class="education-school heading-secondary">
-              Politeknik Caltex Riau
-            </h3>
-            <p class="education-degree">
-              Sarjana Terapan - D4 Teknik Informatika
-            </p>
-            <p class="education-date">August 2022 - June 2026 (Expected)</p>
-          </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section class="section" id="contact">
-          <div class="section-header fade-in-up">
-            <div class="section-subtitle">Let's Connect</div>
-            <h2 class="section-title heading-secondary">Get In Touch</h2>
-            <p class="section-description">
-              Ready to collaborate on innovative projects or discuss exciting
-              opportunities.
-            </p>
-          </div>
-
-          <div class="contact-grid">
-            <div class="contact-card fade-in-up">
-              <div class="contact-card-icon">
+          <div class="contact-info">
+            <div class="contact-item">
+              <div class="contact-icon">
                 <i class="fas fa-phone-alt"></i>
               </div>
-              <h3>Phone</h3>
-              <a href="tel:082284007158">+62 822-8400-7158</a>
+              <div class="contact-details">
+                <h4>Phone</h4>
+                <a href="tel:082284007158">+62 822-8400-7158</a>
+              </div>
             </div>
 
-            <div class="contact-card fade-in-up">
-              <div class="contact-card-icon">
+            <div class="contact-item">
+              <div class="contact-icon">
                 <i class="fas fa-envelope"></i>
               </div>
-              <h3>Email</h3>
-              <a href="mailto:rafidzain.rz@gmail.com">rafidzain.rz@gmail.com</a>
+              <div class="contact-details">
+                <h4>Email</h4>
+                <a href="mailto:rafidzain.rz@gmail.com">rafidzain.rz@gmail.com</a>
+              </div>
             </div>
 
-            <div class="contact-card fade-in-up">
-              <div class="contact-card-icon">
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-map-marker-alt"></i>
+              </div>
+              <div class="contact-details">
+                <h4>Location</h4>
+                <span>Pekanbaru, Riau, Indonesia</span>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon">
                 <i class="fab fa-linkedin"></i>
               </div>
-              <h3>LinkedIn</h3>
-              <a
-                href="https://www.linkedin.com/in/rafid-zain-9953a5265/"
-                target="_blank"
-                >Connect Professional</a
-              >
-            </div>
-
-            <div class="contact-card fade-in-up">
-              <div class="contact-card-icon">
-                <i class="fab fa-github"></i>
+              <div class="contact-details">
+                <h4>LinkedIn</h4>
+                <a href="https://www.linkedin.com/in/rafid-zain-9953a5265/" target="_blank">Connect with me</a>
               </div>
-              <h3>GitHub</h3>
-              <a href="https://github.com/Rafidzain321" target="_blank"
-                >View Repositories</a
-              >
             </div>
           </div>
-        </section>
+        </div>
+      </div>
+    </section>
 
-        <!-- Footer -->
-        <footer class="footer">
-          <div class="footer-content">
-            <p class="footer-subtitle">
-              &copy; 2025 Rafid Zain. All rights reserved.
-            </p>
+    <!-- Experience Section -->
+    <section class="section" id="experience">
+      <div class="section-header fade-in-up">
+        <div class="section-subtitle">Professional Journey</div>
+        <h2 class="section-title heading-secondary">Experience & Projects</h2>
+        <p class="section-description">
+          Perjalanan akademik dan profesional dalam mengembangkan solusi
+          teknologi inovatif.
+        </p>
+      </div>
+
+      <div class="timeline">
+
+        <!-- Internship: PT. Mobilkom Telekomindo -->
+        <div class="timeline-item fade-in-up">
+          <div class="timeline-header">
+            <div>
+              <h3 class="timeline-title">Full-Stack Developer Intern</h3>
+              <p class="timeline-company">PT. Mobilkom Telekomindo — Duri, Riau, Indonesia</p>
+            </div>
+            <div class="timeline-date">Des 2025 - Jan 2026</div>
           </div>
-        </footer>
+          <p class="timeline-sub">HRIS (Human Resource Information System)</p>
+          <div class="timeline-description">
+            <ul>
+              <li>Mengembangkan sistem HRIS berbasis web untuk pengelolaan data karyawan, jabatan, departemen, dan struktur organisasi</li>
+              <li>Mengimplementasikan fitur generate CV otomatis berbasis data karyawan untuk kebutuhan administrasi HR</li>
+              <li>Menambahkan fitur AI berupa chatbot internal untuk membantu pencarian dan ringkasan informasi karyawan</li>
+              <li>Membangun dashboard HR dan kalender libur untuk monitoring dan pengelolaan data karyawan</li>
+            </ul>
+          </div>
+          <hr class="timeline-divider"/>
+          <p class="timeline-sub">Sistem Absensi Fingerprint</p>
+          <div class="timeline-description">
+            <ul>
+              <li>Mengembangkan sistem absensi karyawan berbasis web yang terintegrasi dengan mesin fingerprint ZKTeco</li>
+              <li>Mengelola import data absensi dari Excel, validasi data, serta penentuan status kehadiran otomatis</li>
+              <li>Membangun dashboard absensi, rekap bulanan, dan export laporan absensi untuk kebutuhan HR</li>
+            </ul>
+          </div>
+        </div>
 
-        <!-- Scroll to top button -->
-        <button class="scroll-top" id="scrollTop">
-          <i class="fas fa-arrow-up"></i>
-        </button>
+        <!-- Internship: PT. Pertamina Hulu Rokan -->
+        <div class="timeline-item fade-in-up">
+          <div class="timeline-header">
+            <div>
+              <h3 class="timeline-title">Software Developer Intern</h3>
+              <p class="timeline-company">PT. Pertamina Hulu Rokan — Pekanbaru, Indonesia</p>
+            </div>
+            <div class="timeline-date">Okt 2025 - Nov 2025</div>
+          </div>
+          <p class="timeline-sub">Upstream Application — Project Valuation (I-WISE)</p>
+          <div class="timeline-description">
+            <ul>
+              <li>Mengembangkan modul Project Valuation pada sistem I-WISE (Integrated - Waterflood & Infill Simplified Evaluator) untuk evaluasi keekonomian proyek migas</li>
+              <li>Membangun web app interaktif berbasis Dash & Plotly untuk analisis skenario proyek</li>
+              <li>Mengintegrasikan sistem dengan Oracle Database (stored procedure) untuk pemrosesan data terstandarisasi</li>
+            </ul>
+          </div>
+        </div>
 
-        <script>
-          // Initialize
-          document.addEventListener("DOMContentLoaded", function () {
-            initializePortfolio();
+        <!-- Deep Learning -->
+        <div class="timeline-item fade-in-up">
+          <div class="timeline-header">
+            <div>
+              <h3 class="timeline-title">Deep Learning Engineer</h3>
+              <p class="timeline-company">Politeknik Caltex Riau - Advanced AI Project</p>
+            </div>
+            <div class="timeline-date">Apr 2025 - May 2025</div>
+          </div>
+          <div class="timeline-description">
+            <ul>
+              <li>Developed a sophisticated handwritten digit recognition system using Next.js and PyTorch</li>
+              <li>Implemented CRNN (CNN + LSTM) architecture for enhanced sequence recognition accuracy</li>
+              <li>Achieved 76.03% accuracy on test dataset through advanced model optimization</li>
+              <li>Integrated Python backend with real-time frontend predictions for seamless user experience</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- GIS -->
+        <div class="timeline-item fade-in-up">
+          <div class="timeline-header">
+            <div>
+              <h3 class="timeline-title">GIS Developer</h3>
+              <p class="timeline-company">Geographic Information Systems Project</p>
+            </div>
+            <div class="timeline-date">Des 2024 - Jan 2025</div>
+          </div>
+          <div class="timeline-description">
+            <ul>
+              <li>Built comprehensive web-based GIS platform for mapping SMEs in Pekanbaru</li>
+              <li>Utilized Leaflet and OpenLayers for advanced map visualization and interaction</li>
+              <li>Implemented dynamic filtering system based on business categories and districts</li>
+              <li>Integrated JSON data processing with XAMPP local server infrastructure</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Mobile -->
+        <div class="timeline-item fade-in-up">
+          <div class="timeline-header">
+            <div>
+              <h3 class="timeline-title">Mobile App Developer</h3>
+              <p class="timeline-company">Digital Library Application Project</p>
+            </div>
+            <div class="timeline-date">Nov 2024 - Jan 2025</div>
+          </div>
+          <div class="timeline-description">
+            <ul>
+              <li>Created full-featured digital library Android application using Kotlin</li>
+              <li>Implemented user authentication, book management, and borrowing system</li>
+              <li>Designed modern, responsive UI with Material Design principles</li>
+              <li>Developed separate admin panel for comprehensive library management</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 3D Animation -->
+        <div class="timeline-item fade-in-up">
+          <div class="timeline-header">
+            <div>
+              <h3 class="timeline-title">3D Animation Specialist</h3>
+              <p class="timeline-company">Creative Media Production</p>
+            </div>
+            <div class="timeline-date">Feb 2022 - Jun 2022</div>
+          </div>
+          <div class="timeline-description">
+            <ul>
+              <li>Produced professional 3D animated short films using Blender</li>
+              <li>Designed custom characters and objects with detailed modeling techniques</li>
+              <li>Created dynamic animations following structured storyboard narratives</li>
+              <li>Delivered high-quality video outputs with professional rendering standards</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="section" id="skills">
+      <div class="section-header fade-in-up">
+        <div class="section-subtitle">Core Competencies</div>
+        <h2 class="section-title heading-secondary">Skills & Expertise</h2>
+        <p class="section-description">
+          Comprehensive technical and professional skills developed through
+          intensive learning and practical projects.
+        </p>
+      </div>
+
+      <div class="skills-grid">
+        <div class="skill-card fade-in-up">
+          <h3>
+            <div class="skill-icon"><i class="fas fa-laptop-code"></i></div>
+            Technical Skills
+          </h3>
+          <div class="skill-tags">
+            <span class="skill-tag">HTML</span>
+            <span class="skill-tag">CSS</span>
+            <span class="skill-tag">JavaScript</span>
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">Kotlin</span>
+            <span class="skill-tag">C#</span>
+            <span class="skill-tag">Java</span>
+            <span class="skill-tag">C++</span>
+            <span class="skill-tag">SQL</span>
+            <span class="skill-tag">Laravel</span>
+            <span class="skill-tag">Vue.js</span>
+            <span class="skill-tag">Oracle DB</span>
+          </div>
+        </div>
+
+        <div class="skill-card fade-in-up">
+          <h3>
+            <div class="skill-icon"><i class="fas fa-tools"></i></div>
+            Tools & Frameworks
+          </h3>
+          <div class="skill-tags">
+            <span class="skill-tag">React & Next.js</span>
+            <span class="skill-tag">PyTorch</span>
+            <span class="skill-tag">TensorFlow</span>
+            <span class="skill-tag">Dash & Plotly</span>
+            <span class="skill-tag">Figma</span>
+            <span class="skill-tag">Blender</span>
+            <span class="skill-tag">Unity</span>
+            <span class="skill-tag">Tailwind CSS</span>
+            <span class="skill-tag">Android Studio</span>
+            <span class="skill-tag">Git & GitHub</span>
+            <span class="skill-tag">ZKTeco SDK</span>
+          </div>
+        </div>
+
+        <div class="skill-card fade-in-up">
+          <h3>
+            <div class="skill-icon"><i class="fas fa-bullseye"></i></div>
+            Professional Skills
+          </h3>
+          <div class="skill-tags">
+            <span class="skill-tag">Problem Solving</span>
+            <span class="skill-tag">Team Collaboration</span>
+            <span class="skill-tag">Project Management</span>
+            <span class="skill-tag">Time Management</span>
+            <span class="skill-tag">Remote Work Skills</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="section" id="projects">
+      <div class="section-header fade-in-up">
+        <div class="section-subtitle">Featured Work</div>
+        <h2 class="section-title heading-secondary">Projects</h2>
+        <p class="section-description">
+          Showcase of innovative solutions that demonstrate technical
+          excellence and creative problem-solving.
+        </p>
+      </div>
+
+      <div class="projects-grid">
+
+        <div class="project-card fade-in-up">
+          <div class="project-header">
+            <div class="project-year">2025 · Internship</div>
+            <h3 class="project-title">HRIS & Fingerprint Attendance System</h3>
+          </div>
+          <div class="project-content">
+            <p class="project-description">
+              Sistem manajemen SDM berbasis web lengkap dengan integrasi mesin fingerprint ZKTeco, generate CV otomatis, AI chatbot internal, dan dashboard HR untuk PT. Mobilkom Telekomindo.
+            </p>
+            <div class="project-tech">
+              <span class="tech-tag">Laravel</span>
+              <span class="tech-tag">Vue.js</span>
+              <span class="tech-tag">MySQL</span>
+              <span class="tech-tag">ZKTeco SDK</span>
+              <span class="tech-tag">AI Chatbot</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card fade-in-up">
+          <div class="project-header">
+            <div class="project-year">2025 · Internship</div>
+            <h3 class="project-title">I-WISE Project Valuation Module</h3>
+          </div>
+          <div class="project-content">
+            <p class="project-description">
+              Modul evaluasi keekonomian proyek migas pada sistem I-WISE (Integrated Waterflood & Infill Simplified Evaluator) untuk PT. Pertamina Hulu Rokan, terintegrasi dengan Oracle Database.
+            </p>
+            <div class="project-tech">
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">Dash</span>
+              <span class="tech-tag">Plotly</span>
+              <span class="tech-tag">Oracle DB</span>
+              <span class="tech-tag">Oil & Gas</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card fade-in-up">
+          <div class="project-header">
+            <div class="project-year">2025</div>
+            <h3 class="project-title">AI Handwriting Recognition Platform</h3>
+          </div>
+          <div class="project-content">
+            <p class="project-description">
+              Advanced web application leveraging deep learning for
+              real-time handwritten digit recognition. Built with
+              cutting-edge CRNN architecture achieving 76.03% accuracy.
+            </p>
+            <div class="project-tech">
+              <span class="tech-tag">Next.js</span>
+              <span class="tech-tag">PyTorch</span>
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">CNN+LSTM</span>
+              <span class="tech-tag">AI/ML</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card fade-in-up">
+          <div class="project-header">
+            <div class="project-year">2024</div>
+            <h3 class="project-title">Smart GIS Mapping System</h3>
+          </div>
+          <div class="project-content">
+            <p class="project-description">
+              Comprehensive geographic information system for business
+              intelligence, featuring interactive maps, advanced filtering,
+              and real-time data visualization.
+            </p>
+            <div class="project-tech">
+              <span class="tech-tag">JavaScript</span>
+              <span class="tech-tag">Leaflet</span>
+              <span class="tech-tag">OpenLayers</span>
+              <span class="tech-tag">JSON API</span>
+              <span class="tech-tag">GIS</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card fade-in-up">
+          <div class="project-header">
+            <div class="project-year">2024</div>
+            <h3 class="project-title">Pustakaku Digital Library</h3>
+          </div>
+          <div class="project-content">
+            <p class="project-description">
+              Full-featured mobile application for digital library
+              management with modern UI, user authentication, and
+              comprehensive admin dashboard.
+            </p>
+            <div class="project-tech">
+              <span class="tech-tag">Kotlin</span>
+              <span class="tech-tag">Android Studio</span>
+              <span class="tech-tag">Material Design</span>
+              <span class="tech-tag">SQLite</span>
+              <span class="tech-tag">Mobile</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card fade-in-up">
+          <div class="project-header">
+            <div class="project-year">2024</div>
+            <h3 class="project-title">Immersive 3D Game Experience</h3>
+          </div>
+          <div class="project-content">
+            <p class="project-description">
+              Interactive 3D game developed with Unity and custom Blender
+              assets, featuring engaging gameplay mechanics and stunning
+              visual design.
+            </p>
+            <div class="project-tech">
+              <span class="tech-tag">Unity</span>
+              <span class="tech-tag">C#</span>
+              <span class="tech-tag">Blender</span>
+              <span class="tech-tag">3D Modeling</span>
+              <span class="tech-tag">Game Dev</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Education Section -->
+    <section class="section" id="education">
+      <div class="section-header fade-in-up">
+        <div class="section-subtitle">Academic Excellence</div>
+        <h2 class="section-title heading-secondary">Education</h2>
+        <p class="section-description">
+          Strong academic foundation in computer science and information technology.
+        </p>
+      </div>
+
+      <div class="education-card fade-in-up">
+        <div class="education-icon">🎓</div>
+        <h3 class="education-school heading-secondary">Politeknik Caltex Riau</h3>
+        <p class="education-degree">Sarjana Terapan - D4 Teknik Informatika</p>
+        <p class="education-date">August 2022 - August 2026 (Expected)</p>
+        <div class="education-gpa">IPK 3.62 / 4.00</div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section" id="contact">
+      <div class="section-header fade-in-up">
+        <div class="section-subtitle">Let's Connect</div>
+        <h2 class="section-title heading-secondary">Get In Touch</h2>
+        <p class="section-description">
+          Ready to collaborate on innovative projects or discuss exciting opportunities.
+        </p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-card fade-in-up">
+          <div class="contact-card-icon"><i class="fas fa-phone-alt"></i></div>
+          <h3>Phone</h3>
+          <a href="tel:082284007158">+62 822-8400-7158</a>
+        </div>
+
+        <div class="contact-card fade-in-up">
+          <div class="contact-card-icon"><i class="fas fa-envelope"></i></div>
+          <h3>Email</h3>
+          <a href="mailto:rafidzain.rz@gmail.com">rafidzain.rz@gmail.com</a>
+        </div>
+
+        <div class="contact-card fade-in-up">
+          <div class="contact-card-icon"><i class="fab fa-linkedin"></i></div>
+          <h3>LinkedIn</h3>
+          <a href="https://www.linkedin.com/in/rafid-zain-9953a5265/" target="_blank">Connect Professional</a>
+        </div>
+
+        <div class="contact-card fade-in-up">
+          <div class="contact-card-icon"><i class="fab fa-github"></i></div>
+          <h3>GitHub</h3>
+          <a href="https://github.com/Rafidzain321" target="_blank">View Repositories</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-content">
+        <p class="footer-subtitle">&copy; 2025 Rafid Zain. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <!-- Scroll to top -->
+    <button class="scroll-top" id="scrollTop">
+      <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        initializePortfolio();
+      });
+
+      function initializePortfolio() {
+        setupThemeToggle();
+        setupScrollEffects();
+        setupAnimations();
+        setupCustomCursor();
+        setupLoadingScreen();
+        setupInteractiveElements();
+      }
+
+      function setupThemeToggle() {
+        const themeToggle = document.getElementById("themeToggle");
+        const body = document.body;
+        const currentTheme = localStorage.getItem("theme") || "light";
+        body.setAttribute("data-theme", currentTheme);
+
+        themeToggle.addEventListener("click", function () {
+          const current = body.getAttribute("data-theme");
+          const newTheme = current === "light" ? "dark" : "light";
+          body.setAttribute("data-theme", newTheme);
+          localStorage.setItem("theme", newTheme);
+        });
+      }
+
+      function setupScrollEffects() {
+        const navbar = document.getElementById("navbar");
+        const scrollProgress = document.getElementById("scrollProgress");
+        const scrollTopBtn = document.getElementById("scrollTop");
+
+        window.addEventListener("scroll", function () {
+          const scrolled = window.pageYOffset;
+
+          if (scrolled > 50) {
+            navbar.classList.add("scrolled");
+          } else {
+            navbar.classList.remove("scrolled");
+          }
+
+          const winHeight = window.innerHeight;
+          const docHeight = document.documentElement.scrollHeight;
+          const totalDocScrollLength = docHeight - winHeight;
+          const scrollPosition = Math.floor((scrolled / totalDocScrollLength) * 100);
+          scrollProgress.style.width = scrollPosition + "%";
+
+          if (scrolled > 300) {
+            scrollTopBtn.classList.add("show");
+          } else {
+            scrollTopBtn.classList.remove("show");
+          }
+
+          // Parallax only on desktop
+          if (window.innerWidth > 768) {
+            const hero = document.querySelector(".hero");
+            if (hero && scrolled < window.innerHeight) {
+              hero.style.transform = `translateY(${scrolled / -10}px)`;
+            }
+          }
+        });
+
+        scrollTopBtn.addEventListener("click", function () {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+          anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute("href"));
+            if (target) {
+              const navbarHeight = navbar.offsetHeight;
+              const targetPosition = target.offsetTop - navbarHeight;
+              window.scrollTo({ top: targetPosition, behavior: "smooth" });
+            }
           });
+        });
+      }
 
-          function initializePortfolio() {
-            setupThemeToggle();
-            setupScrollEffects();
-            setupAnimations();
-            setupCustomCursor();
-            setupLoadingScreen();
-            setupInteractiveElements();
-          }
+      function setupAnimations() {
+        const observerOptions = {
+          threshold: 0.1,
+          rootMargin: "0px 0px -50px 0px",
+        };
 
-          // Theme Toggle System
-          function setupThemeToggle() {
-            const themeToggle = document.getElementById("themeToggle");
-            const body = document.body;
-
-            // Check for saved theme preference or default to 'light'
-            const currentTheme = localStorage.getItem("theme") || "light";
-            body.setAttribute("data-theme", currentTheme);
-
-            themeToggle.addEventListener("click", function () {
-              const currentTheme = body.getAttribute("data-theme");
-              const newTheme = currentTheme === "light" ? "dark" : "light";
-
-              body.setAttribute("data-theme", newTheme);
-              localStorage.setItem("theme", newTheme);
-
-              // Add smooth transition effect
-              body.style.transition = "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)";
+        const observer = new IntersectionObserver(function (entries) {
+          entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
               setTimeout(() => {
-                body.style.transition = "";
-              }, 400);
-            });
+                entry.target.classList.add("animate");
+              }, index * 100);
+            }
+          });
+        }, observerOptions);
+
+        document.querySelectorAll(".fade-in-up, .fade-in-left, .fade-in-right").forEach((el) => {
+          observer.observe(el);
+        });
+
+        document.querySelectorAll(".timeline-item, .skill-card, .project-card, .contact-card").forEach((card) => {
+          card.addEventListener("mouseenter", function () {
+            this.style.transition = "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)";
+          });
+        });
+
+        document.querySelectorAll(".skill-tag").forEach((tag) => {
+          tag.addEventListener("mouseenter", function () {
+            this.style.transform = "translateY(-2px) scale(1.05)";
+            this.style.boxShadow = "0 8px 24px rgba(212, 175, 55, 0.3)";
+          });
+          tag.addEventListener("mouseleave", function () {
+            this.style.transform = "";
+            this.style.boxShadow = "";
+          });
+        });
+      }
+
+      // Custom cursor - only on desktop with mouse pointer
+      function setupCustomCursor() {
+        // Only activate if device supports hover (mouse, not touch)
+        const hasMousePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+        if (!hasMousePointer) return;
+
+        const cursorDot = document.getElementById("cursorDot");
+        const cursorOutline = document.getElementById("cursorOutline");
+
+        let mouseX = 0, mouseY = 0, outlineX = 0, outlineY = 0;
+        let cursorVisible = false;
+
+        document.addEventListener("mousemove", function (e) {
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+
+          if (!cursorVisible) {
+            cursorDot.style.opacity = "1";
+            cursorOutline.style.opacity = "0.5";
+            cursorVisible = true;
           }
 
-          // Advanced Scroll Effects
-          function setupScrollEffects() {
-            const navbar = document.getElementById("navbar");
-            const scrollProgress = document.getElementById("scrollProgress");
-            const scrollTopBtn = document.getElementById("scrollTop");
+          cursorDot.style.left = mouseX + "px";
+          cursorDot.style.top = mouseY + "px";
+          cursorDot.style.transform = "translate(-50%, -50%)";
+        });
 
-            window.addEventListener("scroll", function () {
-              const scrolled = window.pageYOffset;
-              const rate = scrolled / -100;
+        document.addEventListener("mouseleave", function () {
+          cursorDot.style.opacity = "0";
+          cursorOutline.style.opacity = "0";
+          cursorVisible = false;
+        });
 
-              // Navbar effects
-              if (scrolled > 50) {
-                navbar.classList.add("scrolled");
+        function animateOutline() {
+          outlineX += (mouseX - outlineX) * 0.1;
+          outlineY += (mouseY - outlineY) * 0.1;
+          cursorOutline.style.left = outlineX + "px";
+          cursorOutline.style.top = outlineY + "px";
+          cursorOutline.style.transform = "translate(-50%, -50%)";
+          requestAnimationFrame(animateOutline);
+        }
+        animateOutline();
+
+        document.querySelectorAll("a, button, .skill-tag, .contact-card").forEach((el) => {
+          el.addEventListener("mouseenter", function () {
+            cursorDot.style.transform = "translate(-50%, -50%) scale(2)";
+            cursorOutline.style.transform = "translate(-50%, -50%) scale(1.5)";
+          });
+          el.addEventListener("mouseleave", function () {
+            cursorDot.style.transform = "translate(-50%, -50%) scale(1)";
+            cursorOutline.style.transform = "translate(-50%, -50%) scale(1)";
+          });
+        });
+      }
+
+      function setupLoadingScreen() {
+        const loadingOverlay = document.getElementById("loadingOverlay");
+        window.addEventListener("load", function () {
+          setTimeout(() => {
+            loadingOverlay.classList.add("hidden");
+          }, 800);
+        });
+      }
+
+      function setupInteractiveElements() {
+        const profileImg = document.querySelector(".profile-img");
+        if (profileImg) {
+          profileImg.addEventListener("click", function () {
+            this.style.transform = "scale(1.1) rotate(5deg)";
+            setTimeout(() => { this.style.transform = ""; }, 300);
+          });
+        }
+
+        // Secret click on logo
+        let clickCount = 0;
+        const logo = document.querySelector(".logo");
+        if (logo) {
+          logo.addEventListener("click", function () {
+            clickCount++;
+            if (clickCount === 5) {
+              showSecretMessage("🎯 You found the secret! This portfolio was crafted with passion and precision!");
+              clickCount = 0;
+            }
+            setTimeout(() => (clickCount = 0), 2000);
+          });
+        }
+
+        document.querySelectorAll(".contact-card").forEach((card) => {
+          card.addEventListener("click", function () {
+            const link = this.querySelector("a");
+            if (link) {
+              if (link.href.startsWith("tel:") || link.href.startsWith("mailto:")) {
+                window.location.href = link.href;
               } else {
-                navbar.classList.remove("scrolled");
+                window.open(link.href, "_blank");
               }
-
-              // Scroll progress
-              const winHeight = window.innerHeight;
-              const docHeight = document.documentElement.scrollHeight;
-              const totalDocScrollLength = docHeight - winHeight;
-              const scrollPostion = Math.floor(
-                (scrolled / totalDocScrollLength) * 100
-              );
-              scrollProgress.style.width = scrollPostion + "%";
-
-              // Scroll to top button
-              if (scrolled > 300) {
-                scrollTopBtn.classList.add("show");
-              } else {
-                scrollTopBtn.classList.remove("show");
-              }
-
-              // Parallax effect for hero section
-              const hero = document.querySelector(".hero");
-              if (hero && scrolled < window.innerHeight) {
-                hero.style.transform = `translateY(${rate}px)`;
-              }
-            });
-
-            // Scroll to top functionality
-            scrollTopBtn.addEventListener("click", function () {
-              window.scrollTo({
-                top: 0,
-                behavior: "smooth",
-              });
-            });
-
-            // Smooth scrolling for navigation links
-            document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-              anchor.addEventListener("click", function (e) {
-                e.preventDefault();
-                const target = document.querySelector(
-                  this.getAttribute("href")
-                );
-                if (target) {
-                  const navbarHeight = navbar.offsetHeight;
-                  const targetPosition = target.offsetTop - navbarHeight;
-
-                  window.scrollTo({
-                    top: targetPosition,
-                    behavior: "smooth",
-                  });
-                }
-              });
-            });
-          }
-
-          // Advanced Animation System
-          function setupAnimations() {
-            const observerOptions = {
-              threshold: 0.1,
-              rootMargin: "0px 0px -50px 0px",
-            };
-
-            const observer = new IntersectionObserver(function (entries) {
-              entries.forEach((entry, index) => {
-                if (entry.isIntersecting) {
-                  setTimeout(() => {
-                    entry.target.classList.add("animate");
-                  }, index * 100);
-                }
-              });
-            }, observerOptions);
-
-            // Observe all animation elements
-            document
-              .querySelectorAll(".fade-in-up, .fade-in-left, .fade-in-right")
-              .forEach((el) => {
-                observer.observe(el);
-              });
-
-            // Advanced hover effects for cards
-            document
-              .querySelectorAll(
-                ".timeline-item, .skill-card, .project-card, .contact-card"
-              )
-              .forEach((card) => {
-                card.addEventListener("mouseenter", function () {
-                  this.style.transform = "translateY(-8px) scale(1.02)";
-                  this.style.transition =
-                    "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)";
-                });
-
-                card.addEventListener("mouseleave", function () {
-                  this.style.transform = "translateY(0) scale(1)";
-                });
-              });
-
-            // Skill tag interactions
-            document.querySelectorAll(".skill-tag").forEach((tag) => {
-              tag.addEventListener("mouseenter", function () {
-                this.style.transform = "translateY(-2px) scale(1.05)";
-                this.style.boxShadow = "0 8px 24px rgba(212, 175, 55, 0.3)";
-              });
-
-              tag.addEventListener("mouseleave", function () {
-                this.style.transform = "translateY(0) scale(1)";
-                this.style.boxShadow = "";
-              });
-            });
-          }
-
-          // Premium Custom Cursor
-          function setupCustomCursor() {
-            if (window.innerWidth > 768) {
-              const cursorDot = document.getElementById("cursorDot");
-              const cursorOutline = document.getElementById("cursorOutline");
-
-              let mouseX = 0;
-              let mouseY = 0;
-              let outlineX = 0;
-              let outlineY = 0;
-
-              document.addEventListener("mousemove", function (e) {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-
-                cursorDot.style.left = mouseX + "px";
-                cursorDot.style.top = mouseY + "px";
-              });
-
-              function animateOutline() {
-                outlineX += (mouseX - outlineX) * 0.1;
-                outlineY += (mouseY - outlineY) * 0.1;
-
-                cursorOutline.style.left = outlineX - 20 + "px";
-                cursorOutline.style.top = outlineY - 20 + "px";
-
-                requestAnimationFrame(animateOutline);
-              }
-              animateOutline();
-
-              // Cursor interactions
-              document
-                .querySelectorAll("a, button, .skill-tag, .contact-card")
-                .forEach((el) => {
-                  el.addEventListener("mouseenter", function () {
-                    cursorDot.style.transform = "scale(2)";
-                    cursorOutline.style.transform = "scale(1.5)";
-                    cursorOutline.style.borderColor = "var(--primary-gold)";
-                  });
-
-                  el.addEventListener("mouseleave", function () {
-                    cursorDot.style.transform = "scale(1)";
-                    cursorOutline.style.transform = "scale(1)";
-                    cursorOutline.style.borderColor = "var(--primary-gold)";
-                  });
-                });
             }
+          });
+        });
+
+        // Konami code
+        let konamiCode = [];
+        const konami = [38,38,40,40,37,39,37,39,66,65];
+        document.addEventListener("keydown", function (e) {
+          konamiCode.push(e.keyCode);
+          if (konamiCode.length > konami.length) konamiCode.shift();
+          if (konamiCode.toString() === konami.toString()) {
+            showSecretMessage("🎉 $1 TRILLION MODE ACTIVATED! This portfolio is indeed worth $1 Trillion in creativity and innovation!");
           }
+        });
+      }
 
-          // Loading Screen
-          function setupLoadingScreen() {
-            const loadingOverlay = document.getElementById("loadingOverlay");
+      function showSecretMessage(msg) {
+        const notification = document.createElement("div");
+        notification.style.cssText = `
+          position: fixed; top: 2rem; right: 2rem;
+          background: linear-gradient(135deg, #D4AF37, #FFD700);
+          color: #1a1a1a; padding: 1.5rem 2rem; border-radius: 15px;
+          font-weight: 600; z-index: 9999;
+          box-shadow: 0 8px 32px rgba(212, 175, 55, 0.3);
+          transform: translateX(500px);
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          max-width: 300px;
+        `;
+        notification.textContent = msg;
+        document.body.appendChild(notification);
+        setTimeout(() => { notification.style.transform = "translateX(0)"; }, 100);
+        setTimeout(() => {
+          notification.style.transform = "translateX(500px)";
+          setTimeout(() => notification.remove(), 400);
+        }, 4000);
+      }
 
-            window.addEventListener("load", function () {
-              setTimeout(() => {
-                loadingOverlay.classList.add("hidden");
-
-                // Start hero animations after loading
-                setTimeout(() => {
-                  startHeroAnimations();
-                }, 600);
-              }, 1000);
-            });
-          }
-
-          function startHeroAnimations() {
-            const heroElements = document.querySelectorAll(
-              ".hero h1, .hero .subtitle, .hero .description, .hero .cta-buttons"
-            );
-
-            heroElements.forEach((el, index) => {
-              setTimeout(() => {
-                el.style.opacity = "1";
-                el.style.transform = "translateY(0)";
-              }, index * 200);
-            });
-          }
-
-          // Interactive Elements
-          function setupInteractiveElements() {
-            // Profile image interaction
-            const profileImg = document.querySelector(".profile-img");
-            if (profileImg) {
-              profileImg.addEventListener("click", function () {
-                this.style.transform = "scale(1.1) rotate(5deg)";
-                setTimeout(() => {
-                  this.style.transform = "scale(1) rotate(0deg)";
-                }, 300);
-              });
-            }
-
-            // Easter eggs and interactions
-            setupEasterEggs();
-
-            // Contact card interactions
-            document.querySelectorAll(".contact-card").forEach((card) => {
-              card.addEventListener("click", function () {
-                const link = this.querySelector("a");
-                if (link) {
-                  // Add ripple effect
-                  const ripple = document.createElement("div");
-                  ripple.style.position = "absolute";
-                  ripple.style.width = "100px";
-                  ripple.style.height = "100px";
-                  ripple.style.background = "rgba(212, 175, 55, 0.3)";
-                  ripple.style.borderRadius = "50%";
-                  ripple.style.transform = "scale(0)";
-                  ripple.style.left = "50%";
-                  ripple.style.top = "50%";
-                  ripple.style.marginLeft = "-50px";
-                  ripple.style.marginTop = "-50px";
-                  ripple.style.animation = "ripple 0.6s ease-out";
-
-                  this.appendChild(ripple);
-
-                  setTimeout(() => {
-                    ripple.remove();
-                    if (
-                      link.href.startsWith("tel:") ||
-                      link.href.startsWith("mailto:")
-                    ) {
-                      window.location.href = link.href;
-                    } else {
-                      window.open(link.href, "_blank");
-                    }
-                  }, 300);
-                }
-              });
-            });
-          }
-
-          // Easter Eggs
-          function setupEasterEggs() {
-            // Konami code
-            let konamiCode = [];
-            const konami = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
-
-            document.addEventListener("keydown", function (e) {
-              konamiCode.push(e.keyCode);
-              if (konamiCode.length > konami.length) {
-                konamiCode.shift();
-              }
-
-              if (konamiCode.toString() === konami.toString()) {
-                activateTrillionMode();
-              }
-            });
-
-            // Secret click combination
-            let clickCount = 0;
-            document
-              .querySelector(".logo")
-              .addEventListener("click", function () {
-                clickCount++;
-                if (clickCount === 5) {
-                  showSecretMessage();
-                  clickCount = 0;
-                }
-                setTimeout(() => (clickCount = 0), 2000);
-              });
-          }
-
-          function activateTrillionMode() {
-            // Show premium alert
-            const modal = createPremiumModal();
-            document.body.appendChild(modal);
-
-            // Activate rainbow mode
-            document.body.style.background =
-              "linear-gradient(45deg, #D4AF37, #FFD700, #2563eb, #7c3aed, #D4AF37)";
-            document.body.style.backgroundSize = "400% 400%";
-            document.body.style.animation = "rainbow 3s ease infinite";
-
-            // Add rainbow keyframes
-            if (!document.getElementById("rainbowStyle")) {
-              const style = document.createElement("style");
-              style.id = "rainbowStyle";
-              style.textContent = `
-                    @keyframes rainbow {
-                        0% { background-position: 0% 50%; }
-                        50% { background-position: 100% 50%; }
-                        100% { background-position: 0% 50%; }
-                    }
-                    @keyframes ripple {
-                        to {
-                            transform: scale(4);
-                            opacity: 0;
-                        }
-                    }
-                `;
-              document.head.appendChild(style);
-            }
-
-            setTimeout(() => {
-              document.body.style.background = "";
-              document.body.style.animation = "";
-              modal.remove();
-            }, 5000);
-          }
-
-          function createPremiumModal() {
-            const modal = document.createElement("div");
-            modal.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.8);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                z-index: 10000;
-                backdrop-filter: blur(10px);
-            `;
-
-            modal.innerHTML = `
-                <div style="
-                    background: linear-gradient(135deg, #D4AF37, #FFD700);
-                    padding: 3rem;
-                    border-radius: 20px;
-                    text-align: center;
-                    color: #1a1a1a;
-                    max-width: 500px;
-                    margin: 2rem;
-                    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-                ">
-                    <h2 style="font-size: 2rem; margin-bottom: 1rem; font-family: 'Playfair Display', serif;">🎉 $1 TRILLION MODE ACTIVATED! 🎉</h2>
-                    <p style="font-size: 1.2rem; margin-bottom: 2rem;">You've unlocked the premium experience! This portfolio is indeed worth $1 Trillion in creativity, innovation, and pure talent!</p>
-                    <div style="font-size: 3rem; margin: 1rem 0;">💎✨🚀</div>
-                    <p style="font-style: italic;">- Premium Portfolio by Rafid Zain -</p>
-                </div>
-            `;
-
-            modal.addEventListener("click", () => modal.remove());
-            return modal;
-          }
-
-          function showSecretMessage() {
-            const messages = [
-              "🎯 You found the secret! This portfolio was crafted with passion and precision!",
-              "💎 Welcome to the trillion-dollar experience!",
-              "🚀 Ready to build the future together?",
-              "✨ Innovation meets elegance in every pixel!",
-            ];
-
-            const randomMessage =
-              messages[Math.floor(Math.random() * messages.length)];
-
-            const notification = document.createElement("div");
-            notification.style.cssText = `
-                position: fixed;
-                top: 2rem;
-                right: 2rem;
-                background: linear-gradient(135deg, #D4AF37, #FFD700);
-                color: #1a1a1a;
-                padding: 1.5rem 2rem;
-                border-radius: 15px;
-                font-weight: 600;
-                z-index: 9999;
-                box-shadow: 0 8px 32px rgba(212, 175, 55, 0.3);
-                transform: translateX(400px);
-                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            `;
-            notification.textContent = randomMessage;
-
-            document.body.appendChild(notification);
-
-            setTimeout(() => {
-              notification.style.transform = "translateX(0)";
-            }, 100);
-
-            setTimeout(() => {
-              notification.style.transform = "translateX(400px)";
-              setTimeout(() => notification.remove(), 400);
-            }, 4000);
-          }
-
-          // Console welcome message
-          console.log(`
-            🌟 Welcome to Rafid Zain's $1 Trillion Portfolio! 🌟
-            
-            💎 Built with premium technologies:
-            🚀 Advanced CSS3 & JavaScript
-            🎨 Custom animations & interactions
-            🌙 Sophisticated dark/light mode
-            ✨ Professional grade design
-            
-            📱 Contact: rafidzain.rz@gmail.com
-            🔗 LinkedIn: linkedin.com/in/rafid-zain-9953a5265/
-            🐙 GitHub: github.com/Rafidzain321
-            
-            💡 Try the easter eggs:
-            - Konami code: ↑ ↑ ↓ ↓ ← → ← → B A
-            - Click logo 5 times quickly
-            
-            Made with ❤️ and countless hours of coding
-        `);
-
-          // Performance optimization
-          function optimizePerformance() {
-            // Lazy load images
-            const images = document.querySelectorAll("img[data-src]");
-            const imageObserver = new IntersectionObserver(
-              (entries, observer) => {
-                entries.forEach((entry) => {
-                  if (entry.isIntersecting) {
-                    const img = entry.target;
-                    img.src = img.dataset.src;
-                    img.classList.remove("lazy");
-                    imageObserver.unobserve(img);
-                  }
-                });
-              }
-            );
-
-            images.forEach((img) => imageObserver.observe(img));
-
-            // Debounce scroll events
-            let scrollTimer = null;
-            window.addEventListener("scroll", function () {
-              if (scrollTimer !== null) {
-                clearTimeout(scrollTimer);
-              }
-              scrollTimer = setTimeout(function () {
-                // Handle scroll events here
-              }, 10);
-            });
-          }
-
-          // Initialize performance optimizations
-          optimizePerformance();
-        </script>
-      </body>
-    </html>
-  </head>
+      console.log(`
+        🌟 Welcome to Rafid Zain's Portfolio! 🌟
+        📱 Contact: rafidzain.rz@gmail.com
+        🔗 LinkedIn: linkedin.com/in/rafid-zain-9953a5265/
+        🐙 GitHub: github.com/Rafidzain321
+        💡 Easter egg: Click logo 5 times, or try Konami code ↑↑↓↓←→←→BA
+      `);
+    </script>
+  </body>
 </html>
